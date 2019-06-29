@@ -9,28 +9,44 @@
 </head>
 
 <body>
+    <!-- 局部指令的使用 -->
     <div id="app">
-        <input type="text">
+        <input type="text" v-color='msg'>
+        <input type="text" v-focus>
     </div>
 
     <script src="./vue.js"></script>
     <script>
-        Vue.directive('color', {
-            bind(el, binding) {
-                console.log(binding);
-
-            }
-        });
         // 自定义指令 带参数
         const vm = new Vue({
             el: '#app',
             data: {
-
+                msg: {
+                    color: 'blue'
+                }
             },
             methods: {
+                handle() {
 
-            }
-        })
+                }
+            },
+            directives: {
+                color: {
+                    bind(el, binding) {
+                        // 根据指令的参数设置背景色
+                        // console.log(binding.value.color);
+                        el.style.backgroundColor = binding.value.color;
+
+                    }
+                },
+                focus: {
+                    inserted(el) {
+                        el.focus();
+                    }
+                }
+            },
+
+        });
     </script>
 </body>
 

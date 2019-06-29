@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<!-- 自定义过滤器 -->
+
+<body>
+    <div id="zx">
+        <input type="text" v-model='msg'>
+        <div>{{ msg | upper }}</div>
+        <div>{{ msg | upper | lower }}</div>
+        <div :abc='msg | upper'> 测试数据 </div>
+    </div>
+
+
+    <script src="./vue.js"></script>
+    <script>
+        // 全局过滤器
+        // Vue.filter('upper', (val) => {
+        //     return val.charAt(0).toUpperCase() + val.slice(1);
+        // });
+        // 进行了两次转换，先转换成大写在转换为小写首字母
+        Vue.filter('lower', (val) => {
+            return val.charAt(0).toLowerCase() + val.slice(1);
+        });
+        const vm = new Vue({
+            el: '#zx',
+            data: {
+                msg: ''
+            },
+            // 局部过滤器，只在本指令中才能进行使用
+            filters: {
+                upper(val) {
+                    return val.charAt(0).toUpperCase() + val.slice(1);
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>
